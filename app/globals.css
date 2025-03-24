@@ -1,42 +1,124 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-html,
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-* {
-  box-sizing: border-box;
   padding: 0;
   margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #C5FFF8;
+  
 }
 
-a {
-  color: inherit;
+.container {
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.title {
+  font-size: 2rem;
+  margin: 20px 0;
+  color: #001e77;
+}
+
+.attraction-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  color: #001e77;
+  
+}
+
+.attraction-card {
+  background: #96EFFF;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.attraction-card:hover {
+  transform: scale(1.05);
+}
+
+.attraction-image {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.attraction-info {
+  text-align: center;
+  margin-top: 10px;
+}
+
+
+/* .attraction-info h2 {
+  margin-bottom: 5px;
+} */
+
+/* ปรับขนาด Rating ให้อยู่ตรงกลาง */
+/* .MuiRating-root {
+  display: flex;
+  justify-content: center;
+  margin: 5px 0;
+} */
+
+.read-more {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 12px;
+  background: #49aef5;
+  color: #C5FFF8;
+  border-radius: 5px;
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+.read-more:hover {
+  background: #0095ff;
+}
+
+/* Page Detail */
+.detail-container {
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+  padding: 20px;
+}
+
+.image-wrapper {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.detail-image {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.detail-title {
+  font-size: 2rem;
+  margin-top: 15px;
+  color: #001e77;
+}
+
+.detail-description {
+  font-size: 1.2rem;
+  color: #555;
+  margin-top: 10px;
+}
+
+.back-button {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 15px;
+  background: #49aef5;
+  color: white;
+  font-size: 1rem;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+.back-button:hover {
+  background: #0095ff;
 }
