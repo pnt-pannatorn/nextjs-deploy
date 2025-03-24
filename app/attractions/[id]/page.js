@@ -1,27 +1,56 @@
 import React from "react";
-import Link from "next/link";
+import {
+  Container,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Button,
+  Typography,
+} from "@mui/material";
 
-async function getData(id) {
-  const res = await fetch(`http://localhost:3001/api/attractions/${id}`);
+export async function getData(id) {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/attractions/${id}`
+  );
+  if (!res.ok) {
+    return null;
+  }
   return res.json();
 }
 
-export default async function Page({ params }) {
+export default async function page(context) {
+  if (!process.env.NEXT_PUBLIC_API_URL) {
+    return <Typography variant="h6">API URL is not set</Typography>;
+  }
+
+  const { params } = context;
   const id = params.id;
   const data = await getData(id);
 
-  return (
-    <div className="detail-container">
-      <div className="image-wrapper">
-        <img src={data.coverimage} alt={data.name} className="detail-image" />
-      </div>
-      <h1 className="detail-title">{data.name}</h1>
-      <p className="detail-description">{data.detail}</p>
+  if (!data) {
+    return <Typography variant="h6">Not found</Typography>;
+  }
 
-      {/* ปุ่มกลับไปยังหน้าหลัก */}
-      <Link href="/attractions" className="back-button">
-        Back to Home
-      </Link>
-    </div>
+  return (
+    <Container maxWidth="md" sx={{ mt: 2 }}>
+      <Card>
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            {data.name}
+          </Typography>
+        </CardContent>
+        <CardMedia
+          sx={{ height: 400 }}
+          image={data.coverimage}
+          title={data.name}
+        />
+        <CardContent>
+          <Typography variant="body2" color="text.secondary">
+            {data.detail}
+          </Typography>
+        </CardContent>
+      </Card>
+    </Container>
   );
 }
