@@ -1,26 +1,37 @@
-import React from 'react'
-import { 
-  Card, CardActions, CardContent, CardMedia, Button, Typography, Grid 
-} from '@mui/material'
+import React from "react";
+import {
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Button,
+  Typography,
+  Grid,
+} from "@mui/material";
 
 export async function getData() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/attractions`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/attractions`);
   if (!res.ok) {
-    throw new Error('Failed to fetch data')
+    throw new Error("Failed to fetch data");
   }
-  return res.json()
+  return res.json();
 }
 
 export default async function page() {
   if (!process.env.NEXT_PUBLIC_API_URL) {
-    return null
+    return null;
   }
-  const data = await getData()
+  const data = await getData();
   return (
     <div>
-      <Typography variant='h5'>Attractions</Typography>
+      <Typography variant="h5">Attractions</Typography>
+      <a href="/attractions/create">
+        <Button variant="contained" sx={{ my: 2 }}>
+          Create
+        </Button>
+      </a>
       <Grid container spacing={1}>
-        {data.map(attraction => (
+        {data.map((attraction) => (
           <Grid item key={attraction.id} xs={12} md={4}>
             <Card>
               <CardMedia
@@ -46,6 +57,5 @@ export default async function page() {
         ))}
       </Grid>
     </div>
-  )
+  );
 }
-

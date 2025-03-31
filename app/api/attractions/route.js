@@ -28,3 +28,36 @@ export async function POST(request) {
     return NextResponse.json({ error: error }, { status: 500 });
   }
 }
+
+export async function PUT(request) {
+  try {
+    const { id, name, detail, coverimage, latitude, longitude } =
+      await request.json();
+    const [result] = await db.query(
+      "'UPDATE attractions SET name=?, detail=?, coverimage=?, latitude=?, longitude=? WHERE id = ?",
+      [name, detail, coverimage, latitude, longitude, id]
+    );
+    if (result.afectedRows == 0) {
+      return NextResponse.json({ error: "ID Not found" }, { status: 404 });
+    }
+    return NextResponse.json({ message: "Updated", id }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ error: error }, { status: 500 });
+  }
+}
+
+export async function DELETE(request) {
+  try {
+    const { id } = await request.json();
+    const [result] = await db.query("DELETE FROM attractions WHERE id = ?", [
+      id,
+    ]);
+    if (result.affectedRows == 0) {
+      return NextResponse.json({ error: "ID Not found" }, { status: 404 });
+    }
+
+    return NextResponse.json({ message: "Deleted", id }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ error: error }, { status: 500 });
+  }
+}
