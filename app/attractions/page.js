@@ -9,7 +9,6 @@ import {
   Grid,
 } from "@mui/material";
 
-
 export async function getData() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/attractions`);
   if (!res.ok) {
@@ -51,6 +50,9 @@ export default async function page() {
               <CardActions>
                 <a href={`/attractions/${attraction.id}`}>
                   <Button size="small">Learn More</Button>
+                </a>
+                <a href={`/attractions/update?id=${attraction.id}`}>
+                  <Button size="sma l">Edit</Button>
                 </a>
               </CardActions>
             </Card>
