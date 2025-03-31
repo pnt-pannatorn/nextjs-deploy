@@ -9,6 +9,7 @@ import {
   Grid,
 } from "@mui/material";
 
+
 export async function getData() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/attractions`);
   if (!res.ok) {
@@ -25,7 +26,7 @@ export default async function page() {
   return (
     <div>
       <Typography variant="h5">Attractions123</Typography>
-      <a href='/attractions/create'>
+      <a href={`/attractions/create`}>
         <Button variant="contained" sx={{ my: 2 }}>
           Create
         </Button>
