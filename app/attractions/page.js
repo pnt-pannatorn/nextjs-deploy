@@ -24,7 +24,7 @@ export default async function page() {
   const data = await getData();
   return (
     <div>
-      <Typography variant="h5">Attractions</Typography>
+      <Typography variant="h5">Attractions123</Typography>
       <a href="/attractions/create">
         <Button variant="contained" sx={{ my: 2 }}>
           Create
