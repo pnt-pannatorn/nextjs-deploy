@@ -1,4 +1,4 @@
-"use client";
+'use client'
 import React from "react";
 import {
   Card,
@@ -9,68 +9,21 @@ import {
   Typography,
   Grid,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React , { useEffect, useState } from 'react'
 
-export default function page() {
+export async function getData() {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/attractions`);
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+  return res.json();
+}
+
+export default async function page() {
   if (!process.env.NEXT_PUBLIC_API_URL) {
     return null;
   }
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  const getData = async () => {
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/attractions`
-      );
-      if (!res.ok) throw new Error("Failed to fetch data");
-      const json = await res.json();
-      setData(json);
-      setLoading(false);
-    } catch (err) {
-      setError(err.message);
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
-
-  const handleDelete = async (id) => {
-    const confirm = window.confirm(
-      "Are you sure you want to delete this attraction?"
-    );
-    if (!confirm) return;
-
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/attractions`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ id: id }),
-        }
-      );
-
-      if (!res.ok) {
-        const errData = await res.json();
-        throw new Error(errData.error || "Failed to delete");
-      }
-
-      // Remove deleted item from state
-      setData((prev) => prev.filter((item) => item.id !== id));
-    } catch (err) {
-      alert(err.message);
-    }
-  };
-
-  if (loading) return <Typography>Loading...</Typography>;
-  if (error) return <Typography color="error">{error}</Typography>;
-
+  const data = await getData();
   return (
     <div>
       <Typography variant="h5">Attractions123</Typography>
@@ -103,13 +56,6 @@ export default function page() {
                 <a href={`/attractions/update?id=${attraction.id}`}>
                   <Button size="sma l">Edit</Button>
                 </a>
-                <Button
-                  size="small"
-                  color="error"
-                  onClick={() => handleDelete(attraction.id)}
-                >
-                  Delete
-                </Button>
               </CardActions>
             </Card>
           </Grid>
