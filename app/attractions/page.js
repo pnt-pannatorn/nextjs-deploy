@@ -1,3 +1,4 @@
+'use client'
 import React from "react";
 import {
   Card,
@@ -8,7 +9,7 @@ import {
   Typography,
   Grid,
 } from "@mui/material";
-import React , { useEffect, useState } from 'react'
+// import React , { useEffect, useState } from 'react'
 
 export async function getData() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/attractions`);
