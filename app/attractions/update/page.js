@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { TextField, Button, Typography, Box, Stack } from "@mui/material";
 import { useSearchParams, useRouter } from "next/navigation";
 
-export default function UpdateAttractionPage() {
+export default function page() {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
   const router = useRouter();
@@ -29,13 +29,12 @@ export default function UpdateAttractionPage() {
     const fetchData = async () => {
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/attractions`
+          `${process.env.NEXT_PUBLIC_API_URL}/api/attractions/` + id
         );
         if (!res.ok) throw new Error("Failed to fetch attractions");
-        const data = await res.json();
-        const attraction = data.find((item) => String(item.id) === String(id));
+        const attraction = await res.json();
         if (!attraction) throw new Error("Attraction not found");
-        setFormData(attraction);
+        setFormData(attraction[0]);
         setLoading(false);
       } catch (err) {
         setError(err.message);
@@ -44,7 +43,7 @@ export default function UpdateAttractionPage() {
     };
 
     fetchData();
-  }, [id]);
+  }, []);
 
   const handleChange = (e) => {
     setFormData({
