@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
-export default async function page() {
+export default function page() {
   if (!process.env.NEXT_PUBLIC_API_URL) {
     return null;
   }
