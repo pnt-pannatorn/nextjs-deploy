@@ -55,7 +55,7 @@ export default function CreateAttractionPage() {
 
       const result = await res.json();
       // Redirect to the main page or detail page
-      router.push("../attraction");
+      router.push("../attractions");
     } catch (err) {
       setError(err.message);
     }
